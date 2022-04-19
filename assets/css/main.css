@@ -1,0 +1,182 @@
+:root{
+  --fs-primary: #33658a;
+  --fs-primary-hover: #224468;
+  --fs-secondary: #66cccc;
+  --fs-secondary-hover: #44aaaa;
+  --fs-dark: #243742;
+  --fs-warning: #ff7700;
+  --fs-light: #dfdfdf;
+  --fs-success: #099f2a;
+  --fs-danger: #de295a;
+}
+
+a{ text-decoration: none !important; }
+
+.fs-site-header {
+  background-color: rgba(0, 0, 0, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.fs-site-header a {
+  color: #999;
+  transition: ease-in-out color .15s;
+}
+.fs-site-header a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.fs-text-1{ font-size: .50rem; }
+.fs-text-2{ font-size: .1rem; }
+.fs-text-3{ font-size: 1.50rem; }
+.fs-text-4{ font-size: 2rem; }
+
+.fs-bg-dark{ background: var(--fs-dark) }
+.fs-bg-warning{ background: var(--fs-warning) }
+.fs-bg-primary{ background: var(--fs-primary) }
+.fs-bg-secondary{ background: var(--fs-secondary) }
+
+.fs-btn-primary{ background: var(--fs-primary); color: #fff }
+.fs-btn-primary:hover{ background: var(--fs-primary-hover); color: #fff }
+.fs-btn-secondary{ background: var(--fs-secondary); color: #fff }
+.fs-btn-secondary:hover{ background: var(--fs-secondary-hover); color: #fff }
+
+.fs-border-primary{ border-color: var(--fs-primary) !important; }
+.fs-border-secondary{ border-color: var(--fs-secondary) !important; }
+
+.fs-text-primary{ color: var(--fs-primary) !important }
+.fs-text-secondary{ color: var(--fs-secondary) !important }
+.fs-text-warning{ color: var(--fs-warning) !important }
+
+.fs-alert{
+  padding: .25rem 1.75rem;
+  background: var(--fs-light);
+  border-radius: .5rem;
+  position: absolute;
+  display: flex;
+  right: 5%;
+  font-size: 1.25rem;
+  box-shadow: 0 0 .5rem var(--fs-light);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+.fs-alert-success{
+  border: 3px solid var(--fs-success);
+  color: var(--fs-success);
+  text-shadow: 0 0 .05rem rgb(10,150,80);
+}
+.fs-alert-danger{
+  border: 3px solid var(--fs-danger);
+  color: var(--fs-danger);
+  text-shadow: 0 0 .05rem rgb(150,10,80);
+}
+.fs-alert-ico{
+  font-size: 2rem
+}
+
+/* INPUTS */
+.fs-form-input{
+  border: 2px solid var(--fs-primary) /*rgb(102, 204, 204)*/;
+  background: transparent;
+  padding: .50rem;
+  position: relative;
+  display: block;
+  border-radius: .25rem;
+  width: 100%;
+  color: var(--fs-ligth);
+  margin: .75rem auto;
+}
+.fs-form-input[placeholder]{
+  color: var(--fs-light);
+  font-size: 1.25rem
+}
+
+.fs-input-success{
+  color: var(--fs-success);
+  border-color: var(--fs-success);
+}
+.fs-input-danger{
+  color: var(--fs-danger);
+  border-color: var(--fs-danger);
+}
+.main-overlay{
+  justify-content: flex-end;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: rgba(0,0,0,.50);
+}
+
+.main-link__item{
+  padding: .50rem 0;
+  margin: 0;
+  border-bottom: 1px solid var(--fs-primary);
+  transition: .5s padding, .5s background;
+}
+.main-link__item:hover{
+  padding: .75rem 0;
+  background: rgba(0,0,0,.8);
+  border-bottom: 1px solid var(--fs-primary);
+}
+.main-item-active{
+  padding: .75rem 0;
+  background: rgba(0,0,0,.8);
+  color: var(--fs-secondary);
+  border-bottom: 2px solid var(--fs-secondary);
+}
+.main-item-active a{
+  color: var(--fs-secondary);
+}
+.main-link__title{
+  padding: .50rem 0;
+  background: rgba(0,0,0,.9);
+  color: rgb(255,255,255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main-links{
+  margin-left: auto;
+  background: rgba(0,0,0,.80);
+  width: 80%;
+  display: grid;
+  text-align: center;
+  padding: 1rem .25rem;
+}
+
+.center-xy{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.center-y{
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.center-y-x{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+.fs-block-overlay{
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  z-index: 999;
+}
+
+.fs-modal{
+
+}

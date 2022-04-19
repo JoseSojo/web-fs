@@ -1,0 +1,81 @@
+
+{{#if PostUpdate}}
+  <div class="container">
+    <div class="row">
+      <div class="card bg-dark m-auto col-md-8">
+        <div class="card-header">
+          <h3 class="text-light">Update Description Post</h3>
+        </div>
+        <div class="card-body text-light">
+          <form action="/post/update/{{PostUpdate.id}}" method="post">
+            <textarea name='fs_post_description' class="fs-form-input">{{PostUpdate.fs_post_description}}</textarea>
+            <input type="submit" class="btn fs-btn-primary" value="Update Description Post">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{{else}}
+<div class="container">
+  <div class="row">
+
+    <!-- Hacer POST -->
+    <div class="card m-auto col-md-10 bg-dark my-3">
+
+      <div class="card-header text-center text-light">
+        <h3>Create a POST</h3>
+      </div>
+
+      <div class="card-body">
+        <form class="" action="/post/new" method="post">
+          <label for="create-post-description" class="text-light lead">Description the post:</label>
+          <textarea name="fs_post_description" id='create-post-description' class="fs-form-input" placeholder="Desciption"></textarea>
+          <input type="submit" class="btn btn-lg fs-btn-primary" value="Create Post">
+        </form>
+      </div>
+
+    </div>
+
+    <!-- LIST POST -->
+    {{#each posts}}
+      <div class="card col-md-8 m-auto shadow bg-dark text-center text-light mb-3">
+        <div class="card-header center-y-x">
+          <div class="d-flex center-y">
+            <h3>@{{fs_post_author}}</h3>
+            <small class='lead mx-3 text-muted'>level: {{fs_post_level}}</small>
+          </div>
+          <div class="text-muted">
+            {{#timeago fs_timestap}}
+              {{this}}
+            {{/timeago}}
+          </div>
+          <div class="d-flex"></div>
+        </div>
+        <div class="card-body lead">
+          <div class="container">
+            <p>{{fs_post_description}}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="container">
+            <div class="row">
+              <button type="button" camp-post='fs_post_likes' id-post='{{id}}' class="post-btn-like btn btn-dark col rounded-0">
+                <i class="bi-hand-thumbs-up-fill text-primary lead mx-2"></i>
+                <strong class='fs_post_likes-{{id}}'>{{fs_post_likes}}</strong>
+              </button>
+              <button type="button" camp-post='fs_post_healt' id-post='{{id}}' class="post-btn-healt btn btn-dark col rounded-0 center-xy">
+                <i class="bi-heart-fill text-danger lead mx-2"></i>
+                <strong class='fs_post_healt-{{id}}'>{{fs_post_healt}}</strong>
+              </button>
+              <button type="button" camp-post='fs_post_dislike' id-post='{{id}}' class="post-btn-dislikes btn btn-dark col rounded-0 center-xy">
+                <i class="bi-hand-thumbs-down-fill text-warning lead mx-2"></i>
+                <strong class='fs_post_dislike-{{id}}'>{{fs_post_dislikes}}</strong>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+{{/if}}

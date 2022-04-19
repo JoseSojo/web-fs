@@ -1,0 +1,25 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 card bg-dark m-auto">
+      <div class="card-header text-center text-light">
+        <h3>{{name}}</h3>
+      </div>
+      <div class="card-body">
+        <form action="/register" method="post" autocomplete="off">
+          <div class="container-fluid">
+            <div class="row">
+              {{#each inputs}}
+                <div class="col-md-6 m-auto">
+                  <label for="{{id}}">{{label}}</label>
+                  <input type="{{type}}" id='{{id}}' name="{{name}}" placeholder="{{label}}" class='fs-form-input'>
+                </div>
+              {{/each}}
+              <input type="submit" id="submit-register" class='btn btn-block btn-lg fs-btn-primary' value="Register">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

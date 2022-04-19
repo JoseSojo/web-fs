@@ -1,0 +1,74 @@
+
+<nav class="fs-site-header sticky-top py-1">
+  <div class="container d-flex flex-row justify-content-between">
+    <strong class="py-2 text-light" id='name-global'>{{server}}</strong>
+    {{#if user}}
+      {{#itemNavActive name 'Profile' 'bi-person-circle' '/profile' }}
+        {{{this}}}
+      {{/itemNavActive}}
+
+      {{#itemNavActive name 'Dashboard' 'bi-house-fill' '/dashboard' }}
+        {{{this}}}
+      {{/itemNavActive}}
+
+      {{#itemNavActive name 'Game' 'bi-controller' '/game' }}
+        {{{this}}}
+      {{/itemNavActive}}
+
+      <!-- {{#itemNavActive name 'Wallet' 'bi-gear-fill' '/configuration' }}
+        {{{this}}}
+      {{/itemNavActive}} -->
+
+      <!-- {{#itemNavActive name 'Wallet' 'bi-wallet-fill' '/wallet' }}
+        {{{this}}}
+      {{/itemNavActive}} -->
+
+      <a class="lead item-nav bi-box-arrow-right d-none d-md-inline-block py-2" href="logout"></a>
+
+      <button type="button" id='main-responsive' class='bi-caret-down text-light d-block d-md-none btn btn-lg'></button>
+
+      <div id="main-overlay" class='main-overlay'>
+        <ul class='main-links'>
+          <ol class="main-link__title">
+            <h3 class='title-responsive'>{{server}}</h3>
+            <button type="button" id="closed-main-responsive" class="btn text-danger btn-lg bi-x-lg"></button>
+          </ol>
+          {{#itemNavActiveResponsive name 'Profile' 'bi-person-circle' '/profile' }}
+            {{{this}}}
+          {{/itemNavActiveResponsive}}
+
+          {{#itemNavActiveResponsive name 'Dashboard' 'bi-house-fill' '/dashboard' }}
+            {{{this}}}
+          {{/itemNavActiveResponsive}}
+
+          {{#itemNavActiveResponsive name 'Game' 'bi-controller' '/game' }}
+            {{{this}}}
+          {{/itemNavActiveResponsive}}
+
+          {{#itemNavActiveResponsive name 'Wallet' 'bi-gear-fill' '/configuration' }}
+            {{{this}}}
+          {{/itemNavActiveResponsive}}
+
+          {{#itemNavActiveResponsive name 'Wallet' 'bi-wallet-fill' '/wallet' }}
+            {{{this}}}
+          {{/itemNavActiveResponsive}}
+          <ol class='main-link__item'>
+            <a class="lead nav-link bi-box-arrow-right py-2" href="/logout">
+              <span>Exit</span>
+            </a>
+          </ol>
+        </ul>
+      </div>
+
+      {{else}}
+        <ul class="nav">
+          <li class="nav-item">
+            <a href="/login" class='nav-link'>Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="/register" class='nav-link'>Register</a>
+          </li>
+        </ul>
+      {{/if}}
+  </div>
+</nav>

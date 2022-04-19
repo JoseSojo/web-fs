@@ -1,0 +1,161 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 card m-auto bg-dark shadow">
+
+      <div class="card-header text-center text-light">
+        <h3>{{name}}</h3>
+      </div>
+
+      <div class="card-body">
+        <!-- CONTAINER CARDS THE PAGINATION IN PROFILE -->
+        <div class="container-fluid shadow">
+          <div class="row">
+            {{#ubicationProfile 'Profile' tab '/profile' 'bi-file-person-fill'}}
+              {{{this}}}
+            {{/ubicationProfile}}
+            {{#ubicationProfile 'Post' tab '/profile/post' 'bi-file-word-fill'}}
+              {{{this}}}
+            {{/ubicationProfile}}
+            {{#ubicationProfile 'Update Data' tab '/profile/update' 'bi-file-post'}}
+              {{{this}}}
+            {{/ubicationProfile}}
+            {{#ubicationProfile 'Update Password' tab '/profile/password' 'bi-file-lock2-fill'}}
+              {{{this}}}
+            {{/ubicationProfile}}
+          </div>
+        </div>
+
+        <!-- CONTAINER FORM UPDATE DATA/PASSWORD -->
+        {{#if inputs}}
+        <div class="card bg-dark">
+          <div class="card-body">
+              <form class="" action="{{action}}" method="post" autocomplete="off">
+                <div class="container-fluid">
+                  <div class="row">
+                    {{#each inputs}}
+                      <div class="{{class}}">
+                        <label for="{{id}}">{{label}}</label>
+                        <input type="{{type}}" name="{{name}}" value="{{value}}" class='fs-form-input' placeholder="{{label}}">
+                      </div>
+                    {{/each}}
+                    <div class="col-md-6">
+                    </div>
+                    <input type="submit" value="Update" class='btn btn-lg fs-btn-primary'>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+        {{/if }}
+
+        <!-- CONTAINER SHOW POST -->
+        {{#if posts}}
+          {{#each posts}}
+          <div class="card col-md-8 mt-3 m-auto shadow bg-dark text-center text-light mb-3">
+            <div class="card-header center-y-x">
+              <div class="d-flex center-y">
+                <h3>@{{fs_post_author}}</h3>
+                <small class='lead mx-3 text-muted'>level: {{fs_post_level}}</small>
+              </div>
+              <div class="text-muted">
+                {{#timeago fs_timestap}}
+                  {{this}}
+                {{/timeago}}
+              </div>
+              <div class="d-flex">
+                <form action='/post/up/${ip}' method='POST'>
+                  <button type='submit' class="btn btn-lg bi-pencil-fill lead text-success"></button>
+                </form>
+                <form action='/post/delete/${ip}' method='POST'>
+                  <button type='submit' class="update-descrption-post btn btn-lg bi-trash-fill lead text-danger"></button>
+                </form>
+              </div>
+            </div>
+            <div class="card-body lead">
+              <div class="container">
+                <p>{{fs_post_description}}</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="container">
+                <div class="row">
+                  <button type="button" class="post-btn-like btn btn-dark col rounded-0">
+                    <i class="bi-hand-thumbs-up-fill text-primary lead mx-2"></i>
+                    <strong>{{fs_post_likes}}</strong>
+                  </button>
+                  <button type="button" class="post-btn-healt btn btn-dark col rounded-0 center-xy">
+                    <i class="bi-heart-fill text-danger lead mx-2"></i>
+                    <strong>{{fs_post_healt}}</strong>
+                  </button>
+                  <button type="button" class="post-btn-dislikes btn btn-dark col rounded-0 center-xy">
+                    <i class="bi-hand-thumbs-down-fill text-warning lead mx-2"></i>
+                    <strong>{{fs_post_dislikes}}</strong>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        {{/if }}
+
+        <!-- CONTAINER TABLET DATA THE USER -->
+        {{#if dataUser}}
+        <div class='card bg-dark mt-3 shadow'>
+          <div class="card-body">
+              <div class="container-fluid">
+                <table class="table tabler-bordered table-dark lead table-striped text-center">
+                  <thead>
+                    <tr>
+                      <td colspan="2">
+                        <h3>Data User</h3>
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each dataUser}}
+                      <tr>
+                        <td>{{title}}</td>
+                        <td>{{value}}</td>
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+        {{/if}}
+
+        <!-- CONTAINER TABLET DATA THE GAMMER -->
+        {{#if dataGammer}}
+        <div class='card bg-dark mt-3 shadow'>
+          <div class="card-body">
+              <div class="container-fluid">
+                <table class="table tabler-bordered table-dark lead table-striped text-center">
+                  <thead>
+                    <tr>
+                      <td colspan="4">
+                        <h3>Data Gammer</h3>
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each dataGammer}}
+                      <tr>
+                        <td>{{title}}</td>
+                        <td>{{value}}</td>
+                        <td>{{title2}}</td>
+                        <td>{{value2}}</td>
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+</div>
