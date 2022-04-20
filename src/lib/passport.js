@@ -56,8 +56,7 @@ passport.use('local.register', new LocalStrategy({
       fs_password,
       fs_email,
       fs_age,
-      fs_game_point: 10,
-      fs_sex: 'Male',
+      fs_game_point: 6,
       fs_role: 'Player'
     }
     NewUser.fs_password = await helpers.encryptPassword(NewUser.fs_password);

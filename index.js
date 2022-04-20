@@ -61,6 +61,7 @@ app.use(require('./src/Controller/RegisterController.js'));
 app.use(require('./src/Controller/LogoutController.js'));
 app.use(require('./src/Controller/DashboardController.js'));
 app.use(require('./src/Controller/ProfileController.js'));
+app.use(require('./src/Controller/GameWebController.js'));
 
 // LISTEN
 app.listen(app.get('port'), ()=>{

@@ -45,12 +45,12 @@ const inputsRegister = [
   $('#fs-register-repeat-password')
 ];
 
-inputsRegister[0].hide();
+inputsRegister[0].addClass('disabled');
 function showBtnSubmit(submit, inputs, index, value){
   valid[index] = value;
   if(valid[1] == true && valid[2] == true && valid[3] == true &&
-    valid[4] == true && valid[5] == true && valid[6] == true) inputsRegister[0].show();
-  else inputsRegister[0].hide();
+    valid[4] == true && valid[5] == true && valid[6] == true) inputsRegister[0].removeClass('disabled');
+  else inputsRegister[0].addClass('disabled');
 }
 function validInputs(input, exp, index){
   if(input.val().match(exp)){
@@ -181,6 +181,55 @@ buttonsReactions.btndislike.click(function(){
   queryAjax($(this));
 });
 
+/* $ `` ! || # \ */
+// ajax up point
+const pluss = {
+  heal: $('.fs_game_point-fs_heal'),
+  lv: $('.fs_game_point-fs_lv'),
+  at: $('.fs_game_point-fs_at'),
+  def: $('.fs_game_point-fs_def'),
+  vel: $('.fs_game_point-fs_vel'),
+  mana: $('.fs_game_point-fs_mana')
+};
+
+function plus(t){
+  const id = t.attr('stast-id');
+  const points = $('.fs-total-points');
+  const camp = t.attr('stast-camp');
+  const value = t;
+  if(points.text() > 0){
+    $.ajax({
+      url: '/plus-stast/' + id,
+      method: 'POST',
+      data: {id,camp},
+      success: function(response){
+        if(response){
+          if(points.text() >= 0 && points.text() < 5) {
+            points.removeClass('text-warning');
+            points.removeClass('text-success');
+            points.addClass('text-danger');
+          } else if(points.text() >= 5 && points.text() < 8) {
+            points.removeClass('text-danger');
+            points.removeClass('text-success');
+            points.addClass('text-warning');
+          } else{
+            points.removeClass('text-danger');
+            points.removeClass('text-warning');
+            points.addClass('text-success');
+          }
+          value.parent().siblings()[1].textContent = response.l;
+          points.text(response.p);
+        }
+      }
+    });
+  }
+}
+
+pluss.heal.click(()=>{ plus(pluss.heal); });
+pluss.at.click(()=>{ plus(pluss.at); });
+pluss.def.click(()=>{ plus(pluss.def); });
+pluss.vel.click(()=>{ plus(pluss.vel); });
+pluss.mana.click(()=>{ plus(pluss.mana); });
 
 
 

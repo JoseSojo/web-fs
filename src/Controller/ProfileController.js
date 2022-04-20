@@ -73,6 +73,34 @@ router.get('/profile/post', SessionOn, async (req, res) => {
   });
 })
 
+router.post('/post/delete/:id', SessionOn, async(req, res) =>{
+  const {id} = req.params;
+  await pool.query('DELETE FROM fs_post WHERE id = ?',[id]);
+  console.log('Post Deleted');
+  req.flash('success', 'Post delete successting');
+  return res.redirect('/profile/post');
+})
+
+router.post('/post/up/:id', SessionOn, async(req, res) =>{
+  const {id} = req.params;
+  const rows = await pool.query('SELECT * FROM fs_post WHERE id = ?',[id]);
+  console.log(rows);
+  const PostUpdate = { fs_post_description: rows[0].fs_post_description, id };
+  res.render('ViewSession/Dashboard.hbs', {
+    name: 'Dashboard',
+    PostUpdate: PostUpdate
+  });
+});
+
+router.post('/post/update/:id', SessionOn, async(req, res) =>{
+  const {id} = req.params;
+  const {fs_post_description} = req.body;
+  await pool.query('UPDATE fs_post SET fs_post_description = ? WHERE id = ?', [fs_post_description, id]);
+  req.flash('success', 'Post update successting');
+  res.redirect('/profile/post');
+});
+
+
 router.get('/profile/update', SessionOn, (req, res) => {
   data[0].value = req.user.fs_username;
   data[1].value = req.user.fs_fullname;

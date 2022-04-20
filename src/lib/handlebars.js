@@ -8,7 +8,7 @@ helpers.timeago = (t) => {
 
 helpers.itemNavActive = (n, name, i, l) => {
   if(n == name){
-    return `<a class="fs-text-secondary item-nav lead ${i} py-2 d-none d-md-inline-block"></a>`
+    return `<a class="fs-text-secondary item-nav lead ${i} py-1 d-none d-md-inline-block fs-text-3"></a>`
   } else{
     return `<a class="lead ${i} py-2 item-nav d-none d-md-inline-block" href="${l}"></a>`
   }
@@ -69,8 +69,10 @@ helpers.idAutor = (i, id, ip) => {
   }
 }
 
-helpers.likeHelp = ()=>{
-
+helpers.validPointsColor = (p)=>{
+  if(p >= 0 && p < 5) return `<strong class="fs_game_point total-point-up text-danger fs-total-points">${p}</strong> `;
+  if(p >= 5 && p < 8) return `<strong class="fs_game_point total-point-up text-warning fs-total-points">${p}</strong> `;
+  return `<strong class="fs_game_point total-point-up text-success fs-total-points">${p}</strong> `;
 }
 
 module.exports = helpers;
