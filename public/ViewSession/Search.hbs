@@ -1,0 +1,28 @@
+{{#if gammer}}
+  <div class="container">
+    <div class="row">
+      <div class="card bg-dark col-md-8 m-auto">
+        <div class="card-header text-light center-xy">
+          <h3>{{user.fs_username}}</h3> <strong class="mx-3 text-muted">Level: {{gammer.fs_lv}}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+{{else}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 card m-auto bg-dark">
+        <div class="card-body">
+          <form class="" action="/search" method="post">
+            <input type="text" id='search-user' placeholder="Search User" class="fs-form-input">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <table class='table table-striped table-hover table-dark'>
+        <tbody id="result-search"></tbody>
+      </table>
+    </div>
+  </div>
+{{/if}}

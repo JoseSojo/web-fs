@@ -231,7 +231,31 @@ pluss.def.click(()=>{ plus(pluss.def); });
 pluss.vel.click(()=>{ plus(pluss.vel); });
 pluss.mana.click(()=>{ plus(pluss.mana); });
 
+// ajax Search
+const searchUser = $('#search-user');
 
+searchUser.keyup(function(){
+  const valueSearch = $(this).val();
+  $.ajax({
+    url: '/search/' + valueSearch,
+    method: 'POST',
+    success: function(response){
+      const user = JSON.parse(response);
+      let template = '';
+      $('#result-search').html('');
+      user.forEach((item, i) => {
+        template += `
+        <tr>
+          <td class="card-header text-center text-light">
+            <a href='/search/${item.id}' class='lead'>@${item.fs_username}</a>
+          </td>
+        </tr>`
+      });
+      $('#result-search').html(template);
+      template = '';
+    }
+  })
+})
 
 
 
