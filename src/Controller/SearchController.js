@@ -8,6 +8,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../../database.js');
 const {SessionOn} = require('../lib/security.js');
+const {speciality} = require('../lib/definitions.js');
 const passport = require('passport');
 
 const {register} = require('../From/Inputs.js');
@@ -25,6 +26,13 @@ router.get('/search/:id',SessionOn, async (req, res) => {
   const {id} = req.params;
   const userResult = await pool.query('SELECT * FROM fs_user WHERE id = ?', [id]);
   const gammerResult = await pool.query('SELECT * FROM fs_game WHERE user_id = ?', [id]);
+  userResult[0].speciality = speciality(
+    gammerResult[0].fs_heal,
+    gammerResult[0].fs_at,
+    gammerResult[0].fs_def,
+    gammerResult[0].fs_vel,
+    gammerResult[0].fs_mana
+  );
 
   res.render('ViewSession/Search.hbs', {
     name: 'Search',

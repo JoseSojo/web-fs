@@ -17,6 +17,9 @@
             {{#ubicationProfile 'Post' tab '/profile/post' 'bi-file-word-fill'}}
               {{{this}}}
             {{/ubicationProfile}}
+            {{#ubicationProfile 'Missions' tab '/profile/mission' 'bi-card-text'}}
+              {{{this}}}
+            {{/ubicationProfile}}
             {{#ubicationProfile 'Update Data' tab '/profile/update' 'bi-file-post'}}
               {{{this}}}
             {{/ubicationProfile}}
@@ -28,25 +31,25 @@
 
         <!-- CONTAINER FORM UPDATE DATA/PASSWORD -->
         {{#if inputs}}
-        <div class="card bg-dark">
-          <div class="card-body">
-              <form class="" action="{{action}}" method="post" autocomplete="off">
-                <div class="container-fluid">
-                  <div class="row">
-                    {{#each inputs}}
-                      <div class="{{class}}">
-                        <label for="{{id}}">{{label}}</label>
-                        <input type="{{type}}" name="{{name}}" value="{{value}}" class='fs-form-input' placeholder="{{label}}">
+          <div class="card bg-dark">
+            <div class="card-body">
+                <form class="" action="{{action}}" method="post" autocomplete="off">
+                  <div class="container-fluid">
+                    <div class="row">
+                      {{#each inputs}}
+                        <div class="{{class}}">
+                          <label for="{{id}}">{{label}}</label>
+                          <input type="{{type}}" name="{{name}}" value="{{value}}" class='fs-form-input' placeholder="{{label}}">
+                        </div>
+                      {{/each}}
+                      <div class="col-md-6">
                       </div>
-                    {{/each}}
-                    <div class="col-md-6">
+                      <input type="submit" value="Update" class='btn btn-lg fs-btn-primary'>
                     </div>
-                    <input type="submit" value="Update" class='btn btn-lg fs-btn-primary'>
                   </div>
-                </div>
-              </form>
+                </form>
+            </div>
           </div>
-        </div>
         {{/if }}
 
         <!-- CONTAINER SHOW POST -->
@@ -97,64 +100,94 @@
             </div>
           </div>
           {{/each}}
-        {{else}}
-          <p class="text-center text-muted mt-5 lead">Not posts <a href="/dashboard">Create a post</a> </p>
-        {{/if }}
+        {{/if}}
+        {{#if notPost}}
+          <p class="text-muted text-center lead pt-5">
+          Not post. <a href="/dashboard">Create a post</a>
+          </p>
+        {{/if}}
 
         <!-- CONTAINER TABLET DATA THE USER -->
         {{#if dataUser}}
-        <div class='card bg-dark mt-3 shadow'>
-          <div class="card-body">
-              <div class="container-fluid">
-                <table class="table tabler-bordered table-dark lead table-striped text-center">
-                  <thead>
-                    <tr>
-                      <td colspan="2">
-                        <h3>Data User</h3>
-                      </td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{#each dataUser}}
+          <div class='card bg-dark mt-3 shadow'>
+            <div class="card-body">
+                <div class="container-fluid">
+                  <table class="table tabler-bordered table-dark lead table-striped text-center">
+                    <thead>
                       <tr>
-                        <td>{{title}}</td>
-                        <td>{{value}}</td>
+                        <td colspan="2">
+                          <h3>Data User</h3>
+                        </td>
                       </tr>
-                    {{/each}}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {{#each dataUser}}
+                        <tr>
+                          <td>{{title}}</td>
+                          <td>{{value}}</td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
           </div>
-        </div>
         {{/if}}
 
         <!-- CONTAINER TABLET DATA THE GAMMER -->
         {{#if dataGammer}}
-        <div class='card bg-dark mt-3 shadow'>
-          <div class="card-body">
-              <div class="container-fluid">
-                <table class="table tabler-bordered table-dark lead table-striped text-center">
-                  <thead>
-                    <tr>
-                      <td colspan="4">
-                        <h3>Data Gammer</h3>
-                      </td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{#each dataGammer}}
+          <div class='card bg-dark mt-3 shadow'>
+            <div class="card-body">
+                <div class="container-fluid">
+                  <table class="table tabler-bordered table-dark lead table-striped text-center">
+                    <thead>
                       <tr>
-                        <td>{{title}}</td>
-                        <td>{{value}}</td>
-                        <td>{{title2}}</td>
-                        <td>{{value2}}</td>
+                        <td colspan="4">
+                          <h3>Data Gammer</h3>
+                        </td>
                       </tr>
-                    {{/each}}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {{#each dataGammer}}
+                        <tr>
+                          <td>{{title}}</td>
+                          <td>{{value}}</td>
+                          <td>{{title2}}</td>
+                          <td>{{value2}}</td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
           </div>
-        </div>
+        {{/if}}
+
+        {{#if missions}}
+          <div class="card col-12 m-auto bg-dark mt-5 shadow">
+            <div class="card-body container-fluid">
+              <div class="row">
+                {{#each missions}}
+                  <div class="card col-md-5 bg-dark shadow border fs-border-primary m-auto text-light">
+                    <div class="card-body text-center">
+                      <h2>{{fs_name}}</h2>
+                      <p class="text-muted my-3 lead p-2">{{fs_description}}</p>
+                      <p class='lead'>Reward: {{fs_reward}} <b class='fs-text-primary'>'fantasititas'</b> </p>
+                      <p class='lead'>Mission of Type: {{fs_type}}</p>
+                      <form action="/profile/mission/delete/{{id}}" method="post">
+                        <input type="submit" class='btn fs-btn-out-primary btn-lg w-100' value='Deleted Missions'>
+                      </form>
+                    </div>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        {{/if}}
+        {{#if missionStatus}}
+          <p class="text-muted text-center lead mt-5">
+            Not missions <a href="/game/missions">Select Mission</a>
+          </p>
         {{/if}}
 
       </div>

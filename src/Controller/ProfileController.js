@@ -44,6 +44,12 @@ router.get('/profile', SessionOn,async (req, res) => {
       value2: gammer.fs_lv
     },
     {
+      title: 'Type',
+      value: gammer.fs_type,
+      title2: 'Rank',
+      value2: gammer.fs_rg
+    },
+    {
       title: 'Attack',
       value: gammer.fs_at,
       title2: 'Defense',
@@ -66,10 +72,48 @@ router.get('/profile', SessionOn,async (req, res) => {
 
 router.get('/profile/post', SessionOn, async (req, res) => {
   const posts = await pool.query('SELECT * FROM fs_post WHERE fs_post_user_id = ?', [req.user.id]);
+  let notPost = false;
+  if(posts.length < 1) notPost = true;
   res.render('ViewSession/Profile.hbs', {
     name: 'Profile',
     tab: 'Post',
-    posts
+    posts,
+    notPost: notPost
+  });
+})
+
+router.get('/profile/update', SessionOn, (req, res) => {
+  data[0].value = req.user.fs_username;
+  data[1].value = req.user.fs_fullname;
+  data[2].value = req.user.fs_email;
+  data[3].value = req.user.fs_age;
+  res.render('ViewSession/Profile.hbs', {
+    name: 'Profile',
+    tab: 'Update Data',
+    inputs: data,
+    action: '/profile/update'
+  });
+});
+
+router.get('/profile/password', SessionOn, (req, res) => {
+  res.render('ViewSession/Profile.hbs', {
+    name: 'Profile',
+    tab: 'Update Password',
+    inputs: password,
+    action: '/profile/password'
+  });
+});
+
+router.get('/profile/mission', SessionOn, async (req,res) =>{
+  let missionStatus = true;
+  const missions = await pool.query('SELECT * FROM fs_mission WHERE fs_user_accept = ?', [req.user.id]);
+  if(missions.length > 0) missionStatus = false;
+  res.render('ViewSession/Profile.hbs', {
+    name: 'Profile',
+    tab: 'Missions',
+    missions,
+    missionStatus,
+    action: '/profile/mission'
   });
 })
 
@@ -100,29 +144,6 @@ router.post('/post/update/:id', SessionOn, async(req, res) =>{
   res.redirect('/profile/post');
 });
 
-
-router.get('/profile/update', SessionOn, (req, res) => {
-  data[0].value = req.user.fs_username;
-  data[1].value = req.user.fs_fullname;
-  data[2].value = req.user.fs_email;
-  data[3].value = req.user.fs_age;
-  res.render('ViewSession/Profile.hbs', {
-    name: 'Profile',
-    tab: 'Update Data',
-    inputs: data,
-    action: '/profile/update'
-  });
-});
-
-router.get('/profile/password', SessionOn, (req, res) => {
-  res.render('ViewSession/Profile.hbs', {
-    name: 'Profile',
-    tab: 'Update Password',
-    inputs: password,
-    action: '/profile/password'
-  });
-});
-
 router.post('/profile/update', SessionOn, async (req, res, done) =>{
   const {fs_age, fs_username, fs_email, fs_fullname} = req.body;
   const UpdateUser = {fs_email,fs_age,fs_fullname,fs_username};
@@ -142,6 +163,13 @@ router.post('/profile/password', SessionOn, async (req, res, done) =>{
     res.redirect('/profile');
   }
   return req.flash('danger', 'The password is invalid');
+});
+
+router.post('/profile/mission/delete/:id', SessionOn, async (req, res, done) =>{
+  await pool.query(`UPDATE fs_mission SET fs_status=0, fs_user_accept= NULL WHERE id = ?`, [req.params.id]);
+  req.flash('success', 'Password update successting');
+  req.flash('danger', 'Mission Delete');
+  res.redirect('/profile/mission');
 });
 
 module.exports = router;

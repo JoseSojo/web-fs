@@ -12,6 +12,7 @@ const helpers = require('../lib/helpers.js');
 const {SessionOn} = require('../lib/security.js');
 const {data, password} = require('../From/Inputs.js');
 
+
 /*
  * PETICION GET
 */
@@ -53,6 +54,7 @@ router.get('/game', SessionOn,async (req, res) => {
   ];
   res.render('ViewSession/GameWeb.hbs', {
     name: 'Game',
+    tab: 'Stast',
     dataGammer: dataGammer
   });
 });
@@ -111,6 +113,33 @@ router.post('/plus-stast/:id', SessionOn, async (req, res) =>{
         break;
     }
   }
+});
+
+router.get('/game/missions', SessionOn,async (req, res) => {
+  let missionStatus = true;
+  const missions = await pool.query('SELECT * FROM fs_mission WHERE fs_status = 0');
+  if(missions.length > 0) missionStatus = false
+  res.render('ViewSession/GameWeb.hbs', {
+    name: 'Game',
+    tab: 'Missions',
+    missions,
+    missionStatus
+  });
+});
+
+router.post('/game/missions/:id', SessionOn,async (req, res) => {
+  await pool.query(`UPDATE fs_mission SET fs_status=1, fs_user_accept= ? WHERE id = ?`, [req.user.id, req.params.id]);
+  req.flash('success', 'Mission Accept');
+  res.redirect('/game/missions');
+});
+
+router.get('/game/shop', SessionOn,async (req, res) => {
+  let shop = true;
+  res.render('ViewSession/GameWeb.hbs', {
+    name: 'Game',
+    tab: 'Shop',
+    shop
+  });
 });
 
 module.exports = router;
