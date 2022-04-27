@@ -72,12 +72,26 @@
             <div class="card-body container-fluid">
               <div class="row">
                 {{#each missions}}
-                  <div class="card col-md-5 bg-dark shadow border fs-border-primary m-auto text-light">
+                  <div class="card col-md-4 bg-dark shadow border fs-border-primary m-auto text-light">
                     <div class="card-body text-center">
                       <h2>{{fs_name}}</h2>
-                      <p class="text-muted my-3 lead p-2">{{fs_description}}</p>
-                      <p class='lead'>Reward: {{fs_reward}} <b class='fs-text-primary'>'fantasititas'</b> </p>
-                      <p class='lead'>Mission of Type: {{fs_type}}</p>
+                      {{#timeago fs_timestamp}}
+                        <p class="text-center">{{this}}</p>
+                      {{/timeago}}
+                      <hr>
+                      <p class="my-3 lead p-2">{{fs_description}}</p>
+                      <table class="table table-sm table-dark table-bordeless trable-striped lead">
+                        <tbody>
+                          <tr>
+                            <td>Reward</td>
+                            <td>{{fs_reward}} <b class='fs-text-primary'>'fantasititas'</b></td>
+                          </tr>
+                          <tr>
+                            <td>Mission of Type</td>
+                            <td>{{fs_type}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                       <form action="/game/missions/{{id}}" method="post">
                         <input type="submit" class='btn fs-btn-out-primary btn-lg w-100' value='Accept Mission'>
                       </form>
