@@ -104,8 +104,6 @@ gsap.to(mainResponsive, {
   scale: 0,
   opacity: 0,
   display: 'none',
-  x: 50,
-  y: -50,
   duration: 0
 });
 gsap.to('.main-links',{
@@ -121,12 +119,12 @@ buttonMainResponsive.click(function(){
     display: 'flex',
     x: 0,
     y: 0,
-    duration: 1.5
+    duration: .5
   });
   showResponsive.to('.main-links', {
     scale: 1,
     opaciti: 1,
-    duration: 1.5,
+    duration: 1,
     stagger: .3
   })
 })
@@ -135,7 +133,7 @@ closedMainResponsive.click(function(){
   showResponsive.to('.main-links', {
     scale: 0,
     opaciti: 0,
-    duration: 1.5
+    duration: 1
   })
   showResponsive.to(mainResponsive, {
     scale: 0,
