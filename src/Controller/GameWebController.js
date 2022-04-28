@@ -128,8 +128,16 @@ router.get('/game/missions', SessionOn,async (req, res) => {
 });
 
 router.post('/game/missions/:id', SessionOn,async (req, res) => {
-  await pool.query(`UPDATE fs_mission SET fs_status=1, fs_user_accept= ? WHERE id = ?`, [req.user.id, req.params.id]);
-  req.flash('success', 'Mission Accept');
+  const types = await pool.query('SELECT fs_type FROM fs_game WHERE user_id = ?', [req.user.id]);
+  const missions = await pool.query('SELECT fs_type FROM fs_mission WHERE id = ?', [req.params.id]);
+  const type = types[0]
+  const mission = missions[0];
+  if(type.fs_type >= mission.fs_type){
+    await pool.query(`UPDATE fs_mission SET fs_status=1, fs_user_accept=? WHERE id = ?`, [req.user.id, req.params.id]);
+    req.flash('success', 'Mission Accept');
+  } else{
+    req.flash('danger', 'Duty being much more strong');
+  }
   res.redirect('/game/missions');
 });
 

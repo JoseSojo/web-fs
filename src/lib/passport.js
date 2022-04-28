@@ -26,8 +26,6 @@ passport.use('local.login', new LocalStrategy({
   const names = await pool.query('SELECT * FROM fs_user WHERE fs_username = ?', [fs_username]);
   if(names.length > 0){
     const user = names[0];
-    console.log('contraseña: ' + fs_password);
-    console.log('Usuario: ' + fs_username);
     const vp = await helpers.matchPassword(fs_password, user.fs_password);
     if(vp){
       done(null, user, req.flash('success', 'Welcome Fantasy Story ' + user.fs_username));
